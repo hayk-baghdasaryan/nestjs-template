@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3316:3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: test_db_user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: test_db
+    healthcheck:
+      test: mysqladmin ping -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      timeout: 20s
+      interval: 1s
+      retries: 20
+
